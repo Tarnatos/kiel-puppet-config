@@ -3,15 +3,15 @@
 # adapt IPV6 first!
 # do dpkg-reconfigure tzdata
 
-NAME="Freifunk Amt Hüttener Berge"
-OPERATOR="Freifunk Nord"
-CHANGELOG="https://osticket.freifunknord.de/scp/"
-HOST_PREFIX="ahb-"
+NAME="Freifunk Kiel"
+OPERATOR="Freifunk Nord e.V."
+CHANGELOG="https://issues.freifunk.in-kiel.de/projects/ffki/issues/"
+HOST_PREFIX="ffki-"
 SUBDOMAIN_PREFIX=gw
 VPN_NUMBER=0
-DOMAIN="ahb.freifunknord.net"
+DOMAIN="kiel.freifunk.net"
 SUDOUSERNAME="debian"
-TLD=ffnord
+TLD=ffki
 
 #backborts einbauen
 echo "deb http://http.debian.net/debian jessie-backports main" >>/etc/apt/sources.list
@@ -90,7 +90,7 @@ touch /usr/local/bin/online
 cat <<-EOF>> /usr/local/bin/online
 #!/bin/bash
 
-maintenance off && service ntp start && batctl -m bat-ffnord gw server 100000/100000 && check-services
+maintenance off && service ntp start && batctl -m bat-ffki gw server 100000/100000 && check-services
 EOF
 chmod +x /usr/local/bin/online
 
@@ -98,7 +98,7 @@ chmod +x /usr/local/bin/online
 cat <<-EOF>> /etc/network/interfaces
 
 iface eth0 inet6 static
-       address 2001:41d0:701:1000::26e
+       address 2001:41d0:701:1000::9
        netmask 128
        post-up /sbin/ip -6 route add 2001:41d0:701:1000::1 dev eth0
        post-up /sbin/ip -6 route add default via 2001:41d0:701:1000::1 dev eth0
